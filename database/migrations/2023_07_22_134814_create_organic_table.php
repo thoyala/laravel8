@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('type')->nullable();
             $table->integer('quantity')->nullable();
             $table->float('cost')->nullable();
-            $table->text('remark')->nullable();
+            $table->text('remark')->nullable();ฟีะ้
 
         });
     }

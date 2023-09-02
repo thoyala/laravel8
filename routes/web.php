@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\Covid19Controller;
 use App\Http\Controllers\MyProfileController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\StaffController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -68,8 +70,12 @@ Route::get("/gallery/cat", function () {
     return view("test/cat", compact("cat"));
 });
 
+Route::middleware(['auth', 'role:admin'])->group(function () {
+
 Route::get("/teacher", function () {
     return view("teacher");
+});
+
 });
 
 Route::get("/student", function () {
@@ -118,3 +124,22 @@ Route::get( "/newgallery/bird" , [ MyProfileController::class , "bird" ] );
 Route::get( "/newgallery/cat" , [ MyProfileController::class , "cat" ] );
 
 Route::get('/covid19', [ Covid19Controller::class,"index" ]);
+
+// Route::get("/product", [ProductController::class, "index"])->name('product.index');
+// Route::get("/product/create", [ProductController::class, "create"])->name('product.create');
+// Route::post("/product", [ProductController::class, "store"])->name('product.store');
+// Route::get('/product/{id}', [ProductController::class, "show"])->name('product.show');
+// Route::get("/product/{id}/edit", [ProductController::class, "edit"])->name('product.edit');
+// Route::patch("/product/{id}", [ProductController::class, "update"])->name('product.update');
+// Route::delete("/product/{id}", [ProductController::class, "destroy"])->name('product.destroy');
+
+Route::resource('/product', ProductController::class );
+
+Route::resource('/staff', StaffController::class );
+
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
+
+require __DIR__ . '/auth.php';
